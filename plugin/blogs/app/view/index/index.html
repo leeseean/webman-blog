@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<?=plugin\blogs\api\Template::heads()?>
+<body>
+<?=plugin\blogs\api\Template::navs()?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 my-20">
+            <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <?php foreach($banner as $k=>$b){ ?>
+                    <div class="carousel-item <?php if($k==0) echo 'active';?>"
+                         onclick="carousels(<?=htmlspecialchars($b['url'])?>)">
+                        <img src="<?=htmlspecialchars($b['image'])?>" class="d-block w-100">
+                    </div>
+                    <?php } ?>
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#carouselControls"
+                        data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carouselControls"
+                        data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
+            <div id="articles"></div>
+            <div id="mores" class="text-center items-more" onclick="mores()">加载更多</div>
+        </div>
+        <?=plugin\blogs\api\Template::rights()?>
+    </div>
+</div>
+<?=plugin\blogs\api\Template::foots()?>
+<script type="text/javascript">
+    /**
+     * 轮播url跳转
+     * @param uri
+     */
+    function carousels(uri) {
+        if (uri) {
+            window.location.href = uri
+        }
+    }
+
+    /**
+     * 跳转详情
+     * @param id
+     */
+    function items(id) {
+        window.location.href = '/app/blogs/detail?id=' + id
+    }
+
+    mores()
+
+    var pages = 1
+    var is_load = true
+
+    function mores() {
+        if (is_load === false) return
+        $.ajax({
+            type: 'GET',
+            url: '/app/blogs',
+            dataType: 'json',
+            data: {page: pages},
+            success: function (res) {
+                var data = res.data.data
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<div class="items" onclick="items(' + data[i].id + ')"><div class="row"><div class="col-lg-3 col-md-4 col-sm-12 overflow-hidden d-inline-block"><div class="items-image"><img src="' + data[i].image + '" class="img-fluid"></div></div><div class="col-lg-9 col-md-8 col-sm-12"><h5 class="items-title">' + data[i].name + '</h5><div class="items-info">' + data[i].content_text + '</div><div class="items-more">阅读更多...</div></div></div></div>'
+                }
+                if (res.data.current_page >= res.data.last_page) {
+                    is_load = false
+                    $('#mores').hide()
+                } else {
+                    $('#mores').show()
+                }
+                $('#articles').append(str)
+                pages++
+            }
+        })
+    }
+</script>
+</body>
+</html>
+
