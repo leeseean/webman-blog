@@ -18,6 +18,12 @@ class IndexController
     public function index()
     {
         $banner = BlogsBanner::all();
+        foreach ($banner as $key => $value) {
+            if (!$value['url']) {
+                $value['url'] = '3sdf';
+            }
+        }
+
         if (request()->isAjax()) {
             $data = Article::articles();
             return json(['data' => $data, 'code' => 0, 'msg' => 'ok']);
