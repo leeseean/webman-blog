@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<?=plugin\blogs\api\Template::heads()?>
+<body>
+<?=plugin\blogs\api\Template::navs()?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 my-20">
+            <div class="details">
+                <h3><?=htmlspecialchars($detail['name'])?></h3>
+                <div class="items-more mx-1">
+                    <span>发布于 <?=$detail['created_at']?></span> /
+                    <span class="mx-1"><?=$detail['views']?>人查看</span>
+                </div>
+                <div class="my-20">
+                    <?=$detail['content']?>
+                </div>
+            </div>
+            <div class="my-20 details">
+                <h4 class="px-0 card-title">相关文章</h4>
+                <div class="card-deck">
+                    <?php foreach($sames as $v){ ?>
+                    <div class="sames card">
+                        <a href="/app/blogs/detail?id=<?=htmlspecialchars($v['id'])?>" class="d-block text-dark text-decoration-none">
+                            <div class="items-image">
+                                <img src="<?=htmlspecialchars($v['image'])?>" class="img-fluid">
+                            </div>
+                            <div class="sames-title">
+                                <?=htmlspecialchars($v['name'])?>
+                            </div>
+                        </a>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <?=plugin\blogs\api\Template::rights()?>
+    </div>
+</div>
+<?=plugin\blogs\api\Template::foots()?>
+</body>
+</html>
