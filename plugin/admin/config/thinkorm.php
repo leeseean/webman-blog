@@ -10,7 +10,7 @@ return [
             // 数据库名
             'database' => 'webman_admin',
             // 数据库用户名
-            'username' => 'webman_admin',
+            'username' => 'root',
             // 数据库密码
             'password' => '123456',
             // 数据库连接端口
