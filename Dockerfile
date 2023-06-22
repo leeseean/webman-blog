@@ -17,6 +17,11 @@ RUN mkdir /app
 COPY ./ /app
 RUN chmod -R 777 /app/public /app/runtime
 
+# install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+RUN composer install --no-dev --working-dir=/app
+
 # clean all
 RUN yum clean all
 
