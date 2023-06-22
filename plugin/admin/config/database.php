@@ -4,7 +4,7 @@ return [
     'connections' => [
         'mysql' => [
             'driver' => 'mysql',
-            'host' => 'localhost',
+            'host' => '0.0.0.0',
             'port' => '3306',
             'database' => 'webman_admin',
             'username' => 'root',

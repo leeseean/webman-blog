@@ -6,7 +6,7 @@ return [
             // 数据库类型
             'type' => 'mysql',
             // 服务器地址
-            'hostname' => 'localhost',
+            'hostname' => '0.0.0.0',
             // 数据库名
             'database' => 'webman_admin',
             // 数据库用户名
