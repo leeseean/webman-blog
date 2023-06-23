@@ -39,7 +39,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">host</label>
                                         <div class="layui-input-block">
-                                            <input type="text" placeholder="请填写入数据库host" name="host" class="layui-input" lay-verify="required" required value="127.0.0.1"/>
+                                            <input type="text" placeholder="请填写入数据库host" name="host" class="layui-input" lay-verify="required" required value="<?php echo getenv('HOST_IP') ?: '127.0.0.1'; ?>"/>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
